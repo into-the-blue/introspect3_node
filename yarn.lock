@@ -836,7 +836,7 @@
     lru_map "^0.3.3"
     tslib "^1.9.3"
 
-"@sentry/tracing@6.17.7":
+"@sentry/tracing@6.17.7", "@sentry/tracing@^6.17.7":
   version "6.17.7"
   resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-6.17.7.tgz#f4536683b29bb3ac7ddda5ca49494731cec6b619"
   integrity sha512-QzIDHOjjdi/0LTdrK2LTC27YEOODI473KD8KmMJ+r9PmjDeIjNzz4hJlPwQSnXR3Mu/8foxGJGXsAt3LNmKzlQ==
