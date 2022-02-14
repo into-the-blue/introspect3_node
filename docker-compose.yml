@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  node-server:
+    build: .
+    container_name: introspect3-node-server
+    image: registry.cn-hangzhou.aliyuncs.com/timvel/introspect3-node
+    ports:
+      - '3000:3000'
+    restart: always
+    env_file:
+      - ./prod.env
+    working_dir: /apps/node-server
+    command: ['npm', 'run', 'start:prod']
+
+    networks:
+      internal:
+
+networks:
+  internal:
