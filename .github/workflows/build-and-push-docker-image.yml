@@ -8,16 +8,16 @@ env:
 on:
   push:
     branches:
-      - "master"
-      - "releases/**"
+      - master
+      - releases/**
     tags:
-      - 'v*'
+      - v**
 
 jobs:
   build:
     runs-on: 'ubuntu-latest'
     steps:
-      - name: Log into registry ${{ env.DOCKER_USERNAME }} ${{ env.DOCKER_PASSWORD }}
+      - name: Log into registry
         uses: docker/login-action@v1
         with:
           registry: ${{ env.REGISTRY }}
@@ -28,5 +28,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.IMAGE_NAME }}:latest,${{ env.IMAGE_NAME }}:${{ github.ref }}
           file: 'Docker/Dockerfile'
