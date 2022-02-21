@@ -1,7 +1,7 @@
 name: build-and-push-docker-image
 
 env:
-  REGISTRY: 'registry.cn-hangzhou.aliyuncs.com'
+  REGISTRY: registry.cn-hangzhou.aliyuncs.com
   IMAGE_NAME: 'registry.cn-hangzhou.aliyuncs.com/timvel/introspect3-node'
 
 on:
@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: 'ubuntu-latest'
     steps:
-      - name: Login to Docker Hub
+      - name: Login to Docker hub
         uses: docker/login-action@v1
         with:
           registry: ${{ env.REGISTRY }}
