@@ -1,12 +1,17 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Req } from '@nestjs/common';
 import { ImageService } from './image.service';
 
 @Controller('image')
 export class ImageController {
   constructor(private imageService: ImageService) {}
 
-  @Get('/random')
+  @Get('random')
   getRandom(@Req() req) {
     return 'image random';
+  }
+
+  @Get('error')
+  returnError() {
+    throw new BadRequestException();
   }
 }
