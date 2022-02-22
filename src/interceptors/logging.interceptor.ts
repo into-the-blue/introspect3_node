@@ -4,9 +4,9 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { catchError, Observable, tap, throwError } from 'rxjs';
-import { Logger, LOGGER } from '@/modules/logger/logger.service';
-import { Request, Response } from 'express';
+import { Observable, finalize } from 'rxjs';
+import { LOGGER } from '@/modules/logger/logger.service';
+import { Request } from 'express';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
@@ -19,16 +19,9 @@ export class LoggingInterceptor implements NestInterceptor {
     const req = ctx.getRequest<Request>();
     // const resp = ctx.getResponse<Response>();
     return next.handle().pipe(
-      tap(() => {
+      finalize(() => {
         const duration = +new Date() - startTime;
-        LOGGER.log(`${req.method} [200] ${req.url} ${duration}ms`);
-      }),
-      catchError((err) => {
-        const duration = +new Date() - startTime;
-        LOGGER.log(
-          `${req.method} [${err.status || 500}] ${req.url} ${duration}ms`,
-        );
-        return throwError(() => err);
+        LOGGER.log(`${req.method} ${req.url} ${duration}ms`);
       }),
     );
   }
