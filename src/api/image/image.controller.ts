@@ -7,7 +7,7 @@ export class ImageController {
 
   @Get('random')
   getRandom(@Req() req) {
-    return 'image random';
+    return this.imageService.getRandom();
   }
 
   @Get('error')

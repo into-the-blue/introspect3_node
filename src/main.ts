@@ -5,13 +5,8 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { ValidationPipe } from './pipes';
-import { SentryInterceptor } from './interceptors';
-import { SentryService } from '@ntegral/nestjs-sentry';
-import { config } from 'dotenv';
-import { resolve } from 'path';
-config({
-  path: resolve(__dirname, '..', 'dev.env'),
-});
+import { SentryInterceptor, LoggingInterceptor } from './interceptors';
+import { LOGGER } from './modules/logger/logger.service';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -19,10 +14,10 @@ async function bootstrap() {
     new FastifyAdapter({ logger: false }),
   );
   app.enableShutdownHooks();
-  // app.useLogger(SentryService.SentryServiceInstance());
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalInterceptors(new SentryInterceptor());
-
+  app.useLogger(LOGGER);
   // app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(3000, '0.0.0.0');
 }
