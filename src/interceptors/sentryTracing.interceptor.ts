@@ -32,6 +32,7 @@ export class SentryTracingInterceptor implements NestInterceptor {
     return next.handle().pipe(
       finalize(() => {
         const res = ctx.getResponse<Response>();
+        // cannot get status code in an interceptor
         transaction.setHttpStatus(res.statusCode);
         transaction.finish();
       }),
