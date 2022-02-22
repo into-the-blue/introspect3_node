@@ -1,2 +1,2 @@
-export * from './sentry.interceptor';
+export * from './sentryTracing.interceptor';
 export * from './logging.interceptor';

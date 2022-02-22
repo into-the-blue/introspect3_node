@@ -12,6 +12,6 @@ export class ImageController {
 
   @Get('error')
   returnError() {
-    throw new BadRequestException();
+    return new BadRequestException();
   }
 }

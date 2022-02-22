@@ -8,7 +8,7 @@ export class TraceMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction): void {
     const transaction = this.sentry.instance().startTransaction({
       op: 'request',
-      name: req.url,
+      name: `${req.method} ${req.url}`,
     });
 
     this.sentry
