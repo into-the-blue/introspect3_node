@@ -1,12 +1,17 @@
 import { Logger } from '@/modules/logger/logger.service';
 import { Injectable } from '@nestjs/common';
+import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 @Injectable()
 export class ImageService {
-  constructor(private logger: Logger) {
+  constructor(
+    private logger: Logger,
+    @InjectSentry() private sentry: SentryService,
+  ) {
     this.logger.setContext('ImageService');
   }
-  getRandom() {
-    this.logger.log('GET RANDOM');
-    return '';
+  async getRandom() {
+    return 'random';
   }
+
+  async getRandomUnsplashImage() {}
 }
