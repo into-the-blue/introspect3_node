@@ -15,10 +15,10 @@ async function bootstrap() {
     new FastifyAdapter({ logger: false }),
   );
   app.enableShutdownHooks();
-  // validate input
-  app.useGlobalPipes(new ValidationPipe());
   // log api execution time
   app.useGlobalInterceptors(new LoggingInterceptor());
+  // validate input
+  app.useGlobalPipes(new ValidationPipe());
   // sentry capture exception
   app.useGlobalInterceptors(new SentryInterceptor());
   // setup default logger
