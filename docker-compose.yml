@@ -10,10 +10,12 @@ services:
     env_file:
       - ./prod.env
     working_dir: /apps/node-server
-    command: ['npm', 'run', 'start:prod']
+    command: [ 'npm', 'run', 'start:prod' ]
 
     networks:
-      internal:
+      timvel:
 
 networks:
-  internal:
+  timvel:
+    external:
+      name: timvel-network
