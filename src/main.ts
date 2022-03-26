@@ -1,4 +1,4 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, HttpAdapterHost } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {
   FastifyAdapter,
@@ -8,6 +8,7 @@ import { ValidationPipe } from './pipes';
 import { LoggingInterceptor } from './interceptors';
 import { LOGGER } from './modules/logger/logger.service';
 import { SentryInterceptor } from '@ntegral/nestjs-sentry';
+import { HttpExceptionFilter } from './exceptionFilters/http.exceptionFilter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -23,7 +24,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new SentryInterceptor());
   // setup default logger
   app.useLogger(LOGGER);
-  // app.useGlobalFilters(new HttpExceptionFilter());
+  // setup global filter
+  app.useGlobalFilters(new HttpExceptionFilter(app.get(HttpAdapterHost)));
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

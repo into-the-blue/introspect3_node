@@ -7,13 +7,14 @@ import * as Sentry from '@sentry/node';
 import { TraceMiddleware } from './middlewares/';
 import { isDev } from './utils';
 import { LoggerModule } from './modules/logger/logger.module';
+import { ENV_VARS } from '@/configs/env';
 
 const sentryModule = SentryModule.forRoot({
   tracesSampleRate: 1,
-  dsn: process.env.SENTRY_DSN,
+  dsn: ENV_VARS.SENTRY_DSN,
   debug: isDev,
-  environment: process.env.ENV,
-  release: process.env.RELEASE, // must create a release in sentry.io dashboard
+  environment: ENV_VARS.ENV,
+  release: ENV_VARS.RELEASE, // must create a release in sentry.io dashboard
   logLevels: isDev ? ['debug'] : ['error', 'warn'], //based on sentry.io loglevel
   close: {
     enabled: true,

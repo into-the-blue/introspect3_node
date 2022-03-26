@@ -1,10 +1,11 @@
 import { ConsoleLogger, Injectable, Scope } from '@nestjs/common';
+import { ENV_VARS } from '@/configs/env';
 @Injectable({
   scope: Scope.TRANSIENT,
 })
 export class Logger extends ConsoleLogger {
   constructor() {
-    super(process.env.NAME, { timestamp: true });
+    super(ENV_VARS.NAME, { timestamp: true });
   }
 
   error(message: any, stack?: string, context?: string): void;
