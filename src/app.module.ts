@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/node';
 import { TraceMiddleware } from './middlewares/';
 import { isDev } from './utils';
 import { LoggerModule } from './modules/logger/logger.module';
+import { MongoModule } from './modules/mongo/mongo.module';
 import { ENV_VARS } from '@/configs/env';
 
 const sentryModule = SentryModule.forRoot({
@@ -22,7 +23,7 @@ const sentryModule = SentryModule.forRoot({
   integrations: [new Sentry.Integrations.Http({ tracing: true })],
 });
 @Module({
-  imports: [sentryModule, ImageModule, LoggerModule],
+  imports: [sentryModule, ImageModule, LoggerModule, MongoModule],
   controllers: [AppController],
   providers: [AppService],
 })
