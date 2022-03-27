@@ -9,4 +9,5 @@ export const MONGODB_CONNECTION_CONFIG: TypeOrmModuleOptions = {
   host: ENV_VARS.MONGO_HOST,
   port: +ENV_VARS.MONGO_PORT,
   authSource: 'admin',
+  useUnifiedTopology: true,
 };
