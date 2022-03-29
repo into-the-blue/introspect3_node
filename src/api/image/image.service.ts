@@ -4,6 +4,8 @@ import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ImageEntity } from '@/modules/mongo/entities/image.entity';
 import { MongoRepository } from 'typeorm';
+import { Unsplash } from '@/service/unsplash';
+import { IntroImageUnsplashRaw } from '@/types/server.type';
 @Injectable()
 export class ImageService {
   constructor(
@@ -18,7 +20,12 @@ export class ImageService {
     return new BadRequestException();
   }
 
-  async getRandomUnsplashImage() {
-    //
+  async getAndSaveRandomUnsplashImage() {
+    const images = await Unsplash.getRandom();
+    await this.saveToDB(images);
+  }
+  async saveToDB(imgs: IntroImageUnsplashRaw[]) {
+    const res = await this.imageCol.insertMany(imgs);
+    return res.insertedIds;
   }
 }

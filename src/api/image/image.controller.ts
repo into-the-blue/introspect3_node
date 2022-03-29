@@ -14,4 +14,10 @@ export class ImageController {
   returnError() {
     return new BadRequestException();
   }
+
+  @Get('get_and_save_unsplash_images')
+  async getAndSaveUnsplash() {
+    await this.imageService.getAndSaveRandomUnsplashImage();
+    return 'ok';
+  }
 }

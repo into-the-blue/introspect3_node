@@ -1,5 +1,5 @@
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
-import { TImageSource } from '@/types/image.type';
+import { IntroImageSource } from '@/types/image.type';
 
 @Entity({ name: 'images' })
 export class ImageEntity {
@@ -7,7 +7,7 @@ export class ImageEntity {
   id: ObjectID;
 
   @Column({ type: 'string' })
-  source: TImageSource;
+  source: IntroImageSource;
 
   @Column({ type: 'string', name: 'image_url' })
   imageUrl: string;
