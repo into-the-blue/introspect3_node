@@ -22,10 +22,10 @@ export class ImageService {
 
   async getAndSaveRandomUnsplashImage() {
     const images = await Unsplash.getRandom();
-    await this.saveToDB(images);
+    return await this.saveToDB(images);
   }
-  async saveToDB(imgs: IntroImageUnsplashRaw[]) {
-    const res = await this.imageCol.insertMany(imgs);
-    return res.insertedIds;
+  async saveToDB(imgs: IntroImageUnsplashRaw[]): Promise<ImageEntity[]> {
+    const res = await this.imageCol.save(imgs);
+    return res;
   }
 }

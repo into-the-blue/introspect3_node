@@ -1,15 +1,16 @@
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
-import { IntroImageSource } from '@/types/image.type';
+import { AddCreatedAtUpdatedAt } from './entityListener';
+import { IntroImageSource, UnsplashMetadata } from '@/types/image.type';
 
 @Entity({ name: 'images' })
-export class ImageEntity {
+export class ImageEntity extends AddCreatedAtUpdatedAt {
   @ObjectIdColumn({ name: '_id' })
   id: ObjectID;
 
   @Column({ type: 'string' })
   source: IntroImageSource;
 
-  @Column({ type: 'string', name: 'image_url' })
+  @Column({ type: 'string' })
   imageUrl: string;
 
   @Column({ type: 'int' })
@@ -18,14 +19,12 @@ export class ImageEntity {
   @Column({ type: 'int' })
   height: number;
 
+  @Column({ nullable: true })
+  unsplashInfo: UnsplashMetadata;
+
   @Column({ type: 'double', nullable: true })
   size?: number;
 
   @Column({ type: 'string', nullable: true })
   mime?: string;
-
-  @Column({ type: 'date', name: 'created_at' })
-  createdAt: Date;
-  @Column({ type: 'date', name: 'updated_at' })
-  updatedAt: Date;
 }
