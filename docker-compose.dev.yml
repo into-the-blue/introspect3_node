@@ -15,7 +15,10 @@ services:
     command: ['npm', 'run', 'start:dev']
 
     networks:
-      internal:
+      timvel:
+        aliases:
+          - intro3-node-server
 
 networks:
-  internal:
+  timvel:
+      name: timvel-network
